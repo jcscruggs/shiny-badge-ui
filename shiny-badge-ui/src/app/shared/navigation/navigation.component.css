@@ -1,0 +1,33 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-sidenav-container {
+  min-height: 100vh;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+mat-nav-list a.mat-list-item:hover {
+  background-color: rgba(233, 30, 99, 0.1);
+  color: #d81b60;
+}
+
+mat-nav-list a.mat-list-item {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+mat-nav-list a.mat-mdc-list-item:hover,
+button.mat-mdc-button:hover {
+  background-color: rgba(233, 30, 99, 0.1) !important;
+  color: #d81b60 !important;
+  transition: all 0.3s ease;
+}
