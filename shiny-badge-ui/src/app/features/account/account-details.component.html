@@ -1,0 +1,40 @@
+<div class="account-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Account Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            @if (currentUser(); as user) {
+            <div class="profile-section">
+                <div class="avatar-container">
+                    @if (user.avatarUrl) {
+                    <img [src]="user.avatarUrl" alt="Profile Picture" class="avatar">
+                    } @else {
+                    <div class="avatar-placeholder">
+                        <mat-icon>person</mat-icon>
+                    </div>
+                    }
+                    <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)"
+                        style="display: none">
+                    <button mat-stroked-button (click)="fileInput.click()">
+                        Change Picture
+                    </button>
+                </div>
+
+                <div class="info-container">
+                    <div class="info-row">
+                        <span class="label">Username:</span>
+                        <span class="value">{{ user.username }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Email:</span>
+                        <span class="value">{{ user.email }}</span>
+                    </div>
+                </div>
+            </div>
+            } @else {
+            <p>Please log in to view account details.</p>
+            }
+        </mat-card-content>
+    </mat-card>
+</div>

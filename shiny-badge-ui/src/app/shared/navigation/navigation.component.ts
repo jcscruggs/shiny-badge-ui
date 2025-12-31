@@ -9,6 +9,10 @@ import { CommonModule } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { signal } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../../core/services/auth.service';
+import { LoginDialogComponent } from '../../features/auth/login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-navigation',
@@ -20,7 +24,10 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatIconModule,
     RouterLink,
-    MatListModule
+    MatListModule,
+    MatMenuModule,
+    MatDialogModule,
+    LoginDialogComponent
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css',
@@ -29,8 +36,15 @@ import { MatListModule } from '@angular/material/list';
 export class NavigationComponent implements OnInit {
   protected readonly isMobile = signal(false);
   protected sidenavOpen = signal(false);
+  protected readonly currentUser;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) {
+    this.currentUser = this.authService.currentUser;
+  }
 
   ngOnInit() {
     this.breakpointObserver
@@ -42,5 +56,15 @@ export class NavigationComponent implements OnInit {
 
   protected toggleSidenav(): void {
     this.sidenavOpen.update(value => !value);
+  }
+
+  protected openLogin(): void {
+    this.dialog.open(LoginDialogComponent, {
+      width: '350px'
+    });
+  }
+
+  protected logout(): void {
+    this.authService.logout();
   }
 }
