@@ -1,15 +1,20 @@
 <div class="container">
-  <mat-card class="welcome-card">
-    <mat-card-header>
-      <mat-card-title>Welcome to Shiny Badge</mat-card-title>
-      <mat-card-subtitle>Your Digital Achievement Platform</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>Discover and showcase your achievements with our innovative badge system.</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary">Get Started</button>
-      <button mat-button>Learn More</button>
-    </mat-card-actions>
-  </mat-card>
+  <header class="home-header">
+    <h1>Explore Badges</h1>
+    <p class="subtitle">Discover goals to challenge yourself and grow.</p>
+  </header>
+
+  <div class="badge-grid" *ngIf="currentUser(); else welcomeMessage">
+    @for (badge of badges(); track badge.id) {
+    <app-card [badge]="badge"></app-card>
+    }
+  </div>
+
+  <ng-template #welcomeMessage>
+    <div class="welcome-container">
+      <h2>Welcome to Shiny Badge!</h2>
+      <p>Track your achievements and grow your skills.</p>
+      <p>Please log in to view your badges and start your journey.</p>
+    </div>
+  </ng-template>
 </div>

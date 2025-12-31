@@ -1,0 +1,20 @@
+<mat-card class="badge-card" [routerLink]="['/badges', badge.id]">
+  <div class="card-image-container">
+     <!-- Placeholder for now, or actual image if available -->
+     <div class="placeholder-image" [style.background-color]="getColorHash(badge.title)">
+       {{ badge.title.charAt(0) }}
+     </div>
+  </div>
+  <mat-card-header>
+    <mat-card-title>{{ badge.title }}</mat-card-title>
+    <mat-card-subtitle>{{ badge.category }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="description">{{ badge.description }}</p>
+    @if (badge.isTracking) {
+      <mat-chip-set>
+        <mat-chip highlighted color="accent">Tracking</mat-chip>
+      </mat-chip-set>
+    }
+  </mat-card-content>
+</mat-card>

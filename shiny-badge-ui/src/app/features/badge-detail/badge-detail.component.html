@@ -1,0 +1,53 @@
+<div class="detail-container">
+    <button mat-button routerLink="/home" class="back-button">
+        <mat-icon>arrow_back</mat-icon> Back to Badges
+    </button>
+
+    @if (badge(); as b) {
+    <div class="hero-section" [style.background-color]="getColorHash(b.title)">
+        <div class="hero-content">
+            <h1>{{ b.title }}</h1>
+            <span class="category-pill">{{ b.category }}</span>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="main-info">
+            <h2>About this Badge</h2>
+            <p class="description">{{ b.description }}</p>
+
+            <h3>Requirements</h3>
+            <ul class="requirements-list">
+                @for (req of b.requirements; track req) {
+                <li>
+                    <mat-icon class="check-icon">check_circle_outline</mat-icon>
+                    <span>{{ req }}</span>
+                </li>
+                }
+            </ul>
+        </div>
+
+        <div class="action-sidebar">
+            @if (b.isTracking) {
+            <div class="tracking-status">
+                <mat-icon class="pulse">radio_button_checked</mat-icon>
+                <p>You are currently tracking this badge.</p>
+                <button mat-stroked-button color="warn" (click)="untrack()">Stop Tracking</button>
+            </div>
+            } @else {
+            <div class="cta-box">
+                <p>Ready to start your journey?</p>
+                <button mat-flat-button color="primary" class="start-btn" (click)="startTracking()">
+                    Start Tracking
+                </button>
+            </div>
+            }
+        </div>
+    </div>
+    } @else {
+    <div class="not-found">
+        <h2>Badge not found</h2>
+        <button mat-button routerLink="/home">Return Home</button>
+    </div>
+    }
+</div>

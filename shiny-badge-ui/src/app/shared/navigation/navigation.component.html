@@ -9,9 +9,7 @@
 
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button *ngIf="isMobile" 
-              mat-icon-button 
-              (click)="toggleSidenav()">
+      <button *ngIf="isMobile" mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Shiny Badge</span>
@@ -21,6 +19,27 @@
         <button mat-button routerLink="/about">About</button>
         <button mat-button routerLink="/contact">Contact</button>
       </ng-container>
+
+      <ng-container *ngIf="currentUser(); else loginButton">
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <mat-icon>account_circle</mat-icon>
+          {{ currentUser()?.username }}
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="/account">
+            <mat-icon>person</mat-icon>
+            <span>Account</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+
+      <ng-template #loginButton>
+        <button mat-button (click)="openLogin()">Login</button>
+      </ng-template>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>
